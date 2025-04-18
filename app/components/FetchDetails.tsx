@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import Container from './Elements/Container';
 import { GoogleGenAI } from "@google/genai";
-import { TbDots } from 'react-icons/tb';
-import { IoReturnDownBack } from 'react-icons/io5';
+import { TbDots, TbLoader3 } from 'react-icons/tb';
+import { IoClose, IoReturnDownBack } from 'react-icons/io5';
 import Link from 'next/link';
 
 const FetchDetails = () => {
@@ -13,6 +13,7 @@ const FetchDetails = () => {
     const [formData, setFormData] = useState({
         webLink: ""
     })
+    const [answer, setAnswer] = useState("");
 
     const handleChange = (e: any) => {
         setFormData({
@@ -21,10 +22,6 @@ const FetchDetails = () => {
         })
     }
 
-    // const isValidURL = (url: string) => {
-    //     const pattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\/.*)?$/;
-    //     return pattern.test(url);
-    // };
     const isValidURL: any = (url: string) => {
         const pattern = new RegExp(
             '^(https?:\\/\\/)?' +
@@ -35,26 +32,23 @@ const FetchDetails = () => {
         return pattern.test(url);
     };
 
-    console.log("use::", isValidURL("https://israel.mnm"))
+
 
     const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_API_KEY });
 
     const fetchData = async () => {
         try {
-            if (!isValidURL(formData.webLink)) {
-                alert("Invalid URL");
-                return;
-            }
+            // e.preventDefault();
             setLoading(true);
-            return "djsdh";
-            // const response = await ai.models.generateContent({
-            //     model: "gemini-2.0-flash",
-            //     contents: `Analyze the following website content and provide a brief overview of its key aspects, including content, potential SEO elements, and user experience. Then, provide a numbered list of specific and actionable notes on how to make this website better. Focus on improvements related to content quality, clarity, SEO optimization, user navigation, accessibility, and overall effectiveness.
+            const response: any = await ai.models.generateContent({
+                model: "gemini-2.0-flash",
+                contents: `Analyze the following website content and provide a brief overview of its key aspects, including content, potential SEO elements, and user experience. Then, provide a numbered list of specific and actionable notes on how to make this website better. Focus on improvements related to content quality, clarity, SEO optimization, user navigation, accessibility, and overall effectiveness.
 
-            //     Website URL: ${formData.webLink}`,
-            // });
-            // console.log(response?.text);
-            // return response?.text;
+                Website URL: ${formData.webLink}`,
+            });
+            console.log(response?.text);
+            setAnswer(response?.text)
+            return response?.text;
         } catch (error: any) {
             const errorMessage = error?.message || "An error occurred while fetching data.";
             console.error("Error fetching data:", errorMessage);
@@ -66,8 +60,10 @@ const FetchDetails = () => {
 
     useEffect(() => {
         const timeout = setTimeout(() => {
-            fetchData();
-        }, 1200)
+            if (formData.webLink && isValidURL(formData.webLink)) {
+                fetchData();
+            }
+        }, 2000);
 
         return () => clearTimeout(timeout)
     }, [formData.webLink])
@@ -75,6 +71,17 @@ const FetchDetails = () => {
 
     return (
         <section className='relative'>
+            {
+                errorMsg && <div className="transition-all ease-linear delay-75 text-white fixed px-6 py-4 top-12 right-4 bg-indigo-400 rounded-[10px]">
+                    <div className="flex justify-end">
+                        <IoClose className='cursor-pointer' onClick={() => setErrorMsg("")} />
+                    </div>
+                    <p className='text-sm mt-2'>
+                        Error Message
+                    </p>
+                </div>
+            }
+
             <div className=" absolute top-4 right-6 flex justify-end">
                 <Link href="/">
                     <IoReturnDownBack className="text-white text-[28px]" />
@@ -96,34 +103,26 @@ const FetchDetails = () => {
 
 
                     <div className='mt-10 flex justify-center'>
-                        <form className='lg:px-6 py-10 rounded-[10px] lg:w-[1016px] mx-auto bg-purple-700/10'>
+                        <form className='lg:px-6 py-10 rounded-[10px] lg:min-w-[1016px] mx-auto bg-purple-700/10'>
                             <div className='flex items-center space-x-2 lg:space-x-4'>
                                 <TbDots className='lg:text-[80px] text-4xl text-white' />
                                 <input
                                     type="text"
                                     name="webLink"
-                                    placeholder='https://website.com'
+                                    placeholder='https://sass.com'
                                     onChange={handleChange}
                                     className='placeholder:text-[#CDD0D8] block w-full focus:border-white focus:outline-white py-[12px] pl-4 pr-2.5 bg-white rounded-[10px]'
                                     required
                                 />
                             </div>
                             <div className='h-[450px] overflow-y-scroll mt-4 rounded-[10px] bg-white border-[#201B1B] border py-3 px-4 '>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
-                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
-                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
-                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
-                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
-                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
+                                {loading ? (
+                                    <div className='text-gray-500 flex items-center space-x-2'> <TbLoader3 className="animate-spin" /> <p>Analyzing website... Please wait.</p></div>
+                                ) : answer ? (
+                                    <pre className="whitespace-pre-wrap text-[#334]">{answer}</pre>
+                                ) : (
+                                    <p className='text-gray-400'>Enter a valid website URL to analyze.</p>
+                                )}
                             </div>
                         </form>
                     </div>
