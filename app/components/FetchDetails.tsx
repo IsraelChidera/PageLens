@@ -1,7 +1,11 @@
 "use client";
 
 import React from 'react';
+import Container from './Elements/Container';
 import { GoogleGenAI } from "@google/genai";
+import { TbDots } from 'react-icons/tb';
+import Navbar from './Navbar';
+import { IoReturnDownBack } from 'react-icons/io5';
 
 const FetchDetails = () => {
 
@@ -21,23 +25,60 @@ const FetchDetails = () => {
     // fetchData();
 
     return (
-        <section>
-            <form>
-                <div>
-                    <input
-                        type="text"
-                        name='content'
-                        // value={inputValue}
-                        // onChange={handleInputChange}
-                        placeholder="Ask Me Something You Want"
-                        className="form-control"
-                    />
-                </div>
+        <section className='relative'>
+            <div className=" absolute top-4 right-6 flex justify-end">
+                <IoReturnDownBack className="text-white text-[28px]" />
+            </div>
 
-                <div>
-                    <button>Submit</button>
-                </div>
-            </form>
+            <div className='pt-[160px] pb-[80px] bg-[url(/bg-hero.png)] h-fit w-full bg-cover bg-center bg-no-repeat'>
+                <Container>
+                    <div className='flex justify-center text-center'>
+                        <div className='w-[750px] text-white'>
+                            <h1 className='leading-[105%] lg:leading-[110%] text-[40px] lg:text-[60px] font-bold'>
+                                Advanced analytics to grow your business
+                            </h1>
+                            <p className='lg:mt-6 mt-4 lg:text-[18px] text-sm leading-[135%] text-[#E6E8EC]'>
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil et pariatur amet obcaecati non illum a. Facere, saepe a ipsam non, doloribus aperiam ad magnam autem quod libero doloremque quo molestias vero iste expedita officia ducimus sunt itaque magni facilis?
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div className='mt-10 flex justify-center'>
+                        <form className='px-6 py-10 rounded-[10px] w-[1016px] mx-auto bg-purple-700/10'>
+                            <div className='flex items-center space-x-2 lg:space-x-4'>
+                                <TbDots className='lg:text-[80px] text-4xl text-white' />
+                                <input type="text" placeholder='website link' className='placeholder:text-[#CDD0D8] block w-full focus:border-white focus:outline-white py-[12px] pl-4 pr-2.5 bg-white rounded-[10px]' />
+                            </div>
+                            <div className='h-[450px] overflow-y-scroll mt-4 rounded-[10px] bg-white border-[#201B1B] border py-3 px-4 '>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
+                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
+                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
+                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
+                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi inventore incidunt harum perspiciatis numquam dolorem beatae eius aperiam quis sint modi consequatur et dolores ab ex, quo possimus sapiente sit vero repellendus doloremque. Illum eum consectetur dignissimos quas similique quaerat?
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor, sit amet consectetur adipisicing elit. Saepe pariatur praesentium dolor inventore, vero, deleniti rerum nemo vel consequuntur quia nulla! Sunt consectetur reiciendis beatae corrupti aliquid cum, autem vero voluptatum, tempora soluta perferendis veniam adipisci, consequuntur est saepe tenetur alias ipsum ab repellat ad? Tempora quis porro ab voluptate.
+                                dffd Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias iste incidunt necessitatibus inventore ea ducimus ipsam maxime, quis qui praesentium nobis a beatae aliquam laboriosam porro totam? Cum, amet provident.
+                            </div>
+                        </form>
+                    </div>
+                </Container>
+            </div>
+
+            <div className='mt-20'>
+                <Container>
+                    <div>
+
+                    </div>
+                </Container>
+            </div>
         </section>
     )
 }
