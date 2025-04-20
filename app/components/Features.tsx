@@ -5,26 +5,26 @@ import Image from 'next/image';
 const services = [
     {
         id: 1,
-        title: `AI Automation`,
-        description: `Implement intelligent tools to streamline operations, reduce costs, and increase efficiency automatically.`,
+        title: `UX & Design Analysis`,
+        description: `We evaluate visual hierarchy, spacing, clarity, and how easy your content is to consume.`,
         image: `/services-1.png`,
     },
     {
         id: 2,
-        title: `Revenue Engagement`,
-        description: `Utilize Al to unlock new growth opportunities and boost business revenue without added effort.`,
+        title: `SEO Essentials`,
+        description: `Quickly uncover missing metadata, bad heading structure, alt tag issues, and more.`,
         image: `/services-2.png`,
     },
     {
         id: 3,
-        title: `Customer Service Optimization`,
-        description: `Improve customer experience through Al-driven solutions that enhance service quality and satisfaction effortlessly.`,
+        title: `Accessibility`,
+        description: `See how your site performs against accessibility best practices like contrast, ARIA, and keyboard navigation.`,
         image: `/services-3.png`,
     },
     {
         id: 4,
-        title: `Performance Guarantee`,
-        description: `Deliver measurable results with a commitment to customer satisfaction, offering a refund if expectations are not met.`,
+        title: `Performance Checks`,
+        description: `Basic insights on image optimization, loading speed, and user experience metrics.                             `,
         image: `/services-4.png`,
     },
 ]

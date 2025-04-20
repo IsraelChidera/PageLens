@@ -13,17 +13,17 @@ const Hero = () => {
                     <div className='flex justify-center text-center'>
                         <div className='w-[750px] text-white'>
                             <h1 className='leading-[105%] lg:leading-[110%] text-[40px] lg:text-[60px] font-bold'>
-                                Advanced analytics to grow your business
+                                Get a Free Audit of Your Website in Seconds
                             </h1>
                             <p className='lg:mt-6 mt-4 lg:text-[18px] text-sm leading-[135%] text-[#E6E8EC]'>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nihil et pariatur amet obcaecati non illum a. Facere, saepe a ipsam non, doloribus aperiam ad magnam autem quod libero doloremque quo molestias vero iste expedita officia ducimus sunt itaque magni facilis?
+                                Enter any URL and we'll instantly analyze the site's UX, SEO, performance, and accessibility — with clear, actionable feedback.
                             </p>
 
                             <div className='mt-10 flex justify-center'>
                                 <div className="flex items-center space-x-2">
                                     <Link href="/check-website">
-                                        <button className="font-bold text-base rounded-[10px] px-10 py-5 hover:bg-linear-to-r hover:from-[#AC5FE6] hover:to-[#6A36FF]  transition ease-linear delay-75 cursor-pointer bg-linear-to-r from-[#6A36FF] to-[#AC5FE6]">
-                                            Generate Audit
+                                        <button className="font-bold text-base rounded-[10px] lg:px-10 px-6 py-2.5 lg:py-5 hover:bg-linear-to-r hover:from-[#AC5FE6] hover:to-[#6A36FF]  transition ease-linear delay-75 cursor-pointer bg-linear-to-r from-[#6A36FF] to-[#AC5FE6]">
+                                            Analyze my site
                                         </button>
                                     </Link>
                                 </div>

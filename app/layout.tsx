@@ -3,16 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Page Lens | Free Website UX & SEO Audit Tool",
   description: "Get a free, instant audit of your website",
@@ -25,8 +15,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="description" content="Get a free, instant audit of your website's UX, SEO, accessibility, and performance. Just enter a link and get actionable feedback to improve your site." />
+        <meta name="keywords" content="website audit, UX audit, SEO checker, accessibility check, performance audit, site analyzer, frontend analysis tool" />
+        <meta name="author" content="Page Lens" />
+        <meta property="og:title" content="Page Lens - Free Website Audit Tool" />
+        <meta property="og:description" content="Analyze any website for UX, SEO, accessibility and performance in seconds." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://page-lens.netlify.app" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={` antialiased`}
       >
         {children}
         <Footer />
