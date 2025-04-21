@@ -8,7 +8,7 @@ const About = () => {
     return (
         <section>
             <Container>
-                <h2 className='mb-10 text-center lg:w-[576px] mx-auto text-[#14358A] font-bold text-[28px] lg:text-[40px] leading-[105%] '>
+                <h2 className='mb-6 text-center lg:w-[576px] mx-auto text-[#14358A] font-bold text-[28px] lg:text-[40px] leading-[105%] '>
                     How it works
                 </h2>
 

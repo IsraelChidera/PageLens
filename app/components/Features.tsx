@@ -31,14 +31,14 @@ const services = [
 
 const OurServices = () => {
     return (
-        <section className='py-[80px]'>
+        <section className='py-[80px] mt-20'>
             <Container>
                 <h2 className='text-center lg:w-[576px] mx-auto text-[#14358A] font-bold text-[28px] lg:text-[40px] leading-[105%] '>
                     We optimize marketing for business continuity
                 </h2>
 
                 <div className="lg:w-[800px] mx-auto">
-                    <div className='grid lg:grid-cols-2 lg:gap-8 space-y-6 lg:space-y-0 text-text mt-10 lg:mt-20'>
+                    <div className='grid lg:grid-cols-2 lg:gap-8 space-y-6 lg:space-y-0 text-text mt-10 lg:mt-12'>
                         {
                             services.map((service) => (
                                 <div
