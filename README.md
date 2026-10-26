@@ -1,36 +1,143 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# 🔍 PageLens
 
-First, run the development server:
+**Free, instant AI-powered website audits.**
+
+Paste any URL and get a clear, prioritized report on your site's UX, SEO, accessibility, performance and content, in seconds.
+
+[**Live Demo**](https://page-lens.netlify.app) · [Report a Bug](https://github.com/IsraelChidera/PageLens/issues) · [Request a Feature](https://github.com/IsraelChidera/PageLens/issues)
+
+![Next.js](https://img.shields.io/badge/Next.js_15-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Google Gemini](https://img.shields.io/badge/Google_Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
+
+</div>
+
+---
+
+## ✨ Features
+
+- **Instant audits.** Enter a URL and get a full report without signing up.
+- **Scores at a glance.** An overall score plus individual scores for UX, SEO, Accessibility, Performance and Content.
+- **Prioritized fixes.** Every recommendation is ranked high, medium or low priority, so you know what to tackle first.
+- **What's working.** See your site's strengths, not just its problems.
+- **Download as PDF.** Export a polished, branded report to share with your team or clients.
+- **Copy as Markdown.** Paste the report straight into docs, tickets or chat.
+- **Shareable links.** Every audit has its own URL (`/check-website?url=...`).
+- **Plain English.** Feedback is written for site owners, not just developers.
+
+## 🧭 How It Works
+
+1. **Enter a URL.** Paste any live website: your SaaS, portfolio, product page or a client's site.
+2. **AI analyzes it.** Google Gemini evaluates the site across five categories and returns a structured report.
+3. **Get your report.** Review scores and recommendations, filter by priority, and download the PDF.
+
+## 🛠️ Tech Stack
+
+| Area | Technology |
+| --- | --- |
+| Framework | [Next.js 15](https://nextjs.org) (App Router) + [React 19](https://react.dev) |
+| Language | [TypeScript](https://www.typescriptlang.org) |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com) |
+| AI | [Google Gemini](https://ai.google.dev) via `@google/genai`, with structured JSON output |
+| PDF reports | [react-pdf](https://react-pdf.org) |
+| Icons | [React Icons](https://react-icons.github.io/react-icons) (Lucide) |
+| Hosting | [Netlify](https://www.netlify.com) |
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org) 18.18 or later
+- A free [Gemini API key](https://aistudio.google.com/apikey)
+
+### Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 1. Clone the repository
+git clone https://github.com/IsraelChidera/PageLens.git
+cd PageLens
+
+# 2. Install dependencies
+npm install
+
+# 3. Add your Gemini API key
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `.env` and set your key:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+NEXT_PUBLIC_API_KEY=your-gemini-api-key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# 4. Start the development server
+npm run dev
+```
 
-## Learn More
+Visit [http://localhost:3000](http://localhost:3000) and run your first audit.
 
-To learn more about Next.js, take a look at the following resources:
+### Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Run the production build |
+| `npm run lint` | Lint the codebase |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📁 Project Structure
 
-## Deploy on Vercel
+```
+app/
+├── check-website/      # Audit page
+├── components/
+│   ├── Elements/       # Shared UI (hero, URL form, logo, container)
+│   └── report/         # Report view, score ring, loading state
+│       └── pdf/        # PDF report layout
+├── lib/
+│   ├── audit.ts        # Gemini prompt, response schema and model fallback
+│   ├── score.ts        # Score colors and labels
+│   └── url.ts          # URL validation helpers
+├── layout.tsx
+└── page.tsx            # Landing page
+public/fonts/           # Fonts embedded in PDF reports
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🌐 Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+PageLens is deployed on Netlify, and any platform that supports Next.js will work (Vercel, Netlify, and so on).
+
+Remember to add `NEXT_PUBLIC_API_KEY` to your hosting provider's environment variables, then redeploy.
+
+## 📝 A Note on Results
+
+Audits are generated by AI from what the model knows about a site. Treat scores as an informed starting point for improvements rather than exact measurements from tools like Lighthouse.
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome.
+
+1. Fork the project
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m "Add amazing feature"`
+4. Push the branch: `git push origin feature/amazing-feature`
+5. Open a pull request
+
+## 👤 Author
+
+**Israel Chidera**
+
+- GitHub: [@IsraelChidera](https://github.com/IsraelChidera)
+
+---
+
+<div align="center">
+
+If you find PageLens useful, consider giving it a ⭐ on GitHub!
+
+</div>
