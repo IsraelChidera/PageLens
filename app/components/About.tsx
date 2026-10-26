@@ -1,55 +1,50 @@
 import React from 'react';
 import Container from './Elements/Container';
-import Image from 'next/image';
-import { MdInput } from 'react-icons/md';
-import { TbAnalyze, TbReportAnalytics } from 'react-icons/tb';
+import { LuLink, LuListChecks, LuWandSparkles } from 'react-icons/lu';
+
+const steps = [
+    {
+        icon: LuLink,
+        title: "Enter a URL",
+        description: "Paste any live website link: your SaaS, portfolio, product page, or a client's site.",
+    },
+    {
+        icon: LuWandSparkles,
+        title: "We analyze",
+        description: "Our AI breaks the site down across UX, SEO, accessibility, performance and content.",
+    },
+    {
+        icon: LuListChecks,
+        title: "Get your report",
+        description: "See scores at a glance and what needs fixing first, with human-friendly advice.",
+    },
+];
 
 const About = () => {
     return (
-        <section>
+        <section id="how-it-works" className="scroll-mt-16 py-20 sm:py-28">
             <Container>
-                <h2 className='mb-6 text-center lg:w-[576px] mx-auto text-[#14358A] font-bold text-[28px] lg:text-[40px] leading-[105%] '>
-                    How it works
-                </h2>
-
-                <div className="lg:w-[1000px] mx-auto pt-10 lg:grid lg:grid-cols-2 grid-cols-1 lg:gap-4 gap-0 lg:space-y-0 space-y-6">
-                    <div className='space-y-10'>
-                        <div className="flex items-center space-x-4 w-full">
-                            <MdInput className='text-[40px] text-[#14358A] ' />
-                            <div>
-                                <h3 className='text-[#14358A] font-semibold text-base lg:text-[20px]'>Enter a URL</h3>
-                                <p className='text-[#68718B] mt-2 text-sm lg:text-base leading-[135%] '>
-                                    Paste any live website link — your SaaS, portfolio, product page, or client’s site.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center space-x-4 w-full">
-                            <TbAnalyze className='text-[40px] text-[#14358A] ' />
-                            <div>
-                                <h3 className='text-[#14358A] font-semibold text-base lg:text-[20px]'>We Analyze</h3>
-                                <p className='text-[#68718B] mt-2 text-sm lg:text-base leading-[135%] '>
-                                    We break down the site's performance into UX, SEO, accessibility, and mobile categories.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center space-x-4 w-full">
-                            <TbReportAnalytics className='text-[40px] text-[#14358A] ' />
-                            <div>
-                                <h3 className='text-[#14358A] font-semibold text-base lg:text-[20px]'>Get Your Report</h3>
-                                <p className='text-[#68718B] mt-2 text-sm lg:text-base leading-[135%] '>
-                                    Instantly see what's working and what needs fixing, with human-friendly advice
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div>
-                        <Image src="/features-img.png" alt="features" width={409} height={306} />
-                    </div>
+                <div className="mx-auto max-w-2xl text-center">
+                    <p className="text-sm font-semibold text-indigo-600">How it works</p>
+                    <h2 className='mt-2 text-3xl font-semibold tracking-tight text-slate-900 text-balance sm:text-4xl'>
+                        From URL to action plan in three steps
+                    </h2>
                 </div>
+
+                <ol className="mt-14 grid gap-6 md:grid-cols-3">
+                    {steps.map((step, index) => (
+                        <li key={step.title} className="relative rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+                            <div className="flex items-center justify-between">
+                                <span className="flex size-11 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
+                                    <step.icon className="size-5" aria-hidden />
+                                </span>
+                                <span className="font-mono text-sm font-medium text-slate-300">0{index + 1}</span>
+                            </div>
+                            <h3 className='mt-6 text-lg font-semibold text-slate-900'>{step.title}</h3>
+                            <p className='mt-2 leading-relaxed text-slate-600'>{step.description}</p>
+                        </li>
+                    ))}
+                </ol>
             </Container>
         </section>
     )

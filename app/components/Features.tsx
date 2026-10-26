@@ -1,68 +1,74 @@
 import React from 'react';
 import Container from './Elements/Container';
-import Image from 'next/image';
+import { IconType } from 'react-icons';
+import { LuAccessibility, LuFileText, LuGauge, LuListChecks, LuMousePointerClick, LuSearch } from 'react-icons/lu';
 
-const services = [
+const services: { title: string; description: string; icon: IconType; tint: string }[] = [
     {
-        id: 1,
-        title: `UX & Design Analysis`,
+        title: `UX & Design`,
         description: `We evaluate visual hierarchy, spacing, clarity, and how easy your content is to consume.`,
-        image: `/services-1.png`,
+        icon: LuMousePointerClick,
+        tint: "bg-pink-50 text-pink-600",
     },
     {
-        id: 2,
         title: `SEO Essentials`,
-        description: `Quickly uncover missing metadata, bad heading structure, alt tag issues, and more.`,
-        image: `/services-2.png`,
+        description: `Quickly uncover missing metadata, poor heading structure, alt tag issues, and more.`,
+        icon: LuSearch,
+        tint: "bg-sky-50 text-sky-600",
     },
     {
-        id: 3,
         title: `Accessibility`,
-        description: `See how your site performs against accessibility best practices like contrast, ARIA, and keyboard navigation.`,
-        image: `/services-3.png`,
+        description: `See how your site measures up on contrast, ARIA usage, and keyboard navigation.`,
+        icon: LuAccessibility,
+        tint: "bg-emerald-50 text-emerald-600",
     },
     {
-        id: 4,
-        title: `Performance Checks`,
-        description: `Basic insights on image optimization, loading speed, and user experience metrics.                             `,
-        image: `/services-4.png`,
+        title: `Performance`,
+        description: `Insights on image optimization, loading speed, and the experience users feel.`,
+        icon: LuGauge,
+        tint: "bg-amber-50 text-amber-600",
+    },
+    {
+        title: `Content & Clarity`,
+        description: `Find out whether your messaging is clear, persuasive, and easy to act on.`,
+        icon: LuFileText,
+        tint: "bg-violet-50 text-violet-600",
+    },
+    {
+        title: `Prioritized Fixes`,
+        description: `Every issue comes ranked by impact, so you always know what to tackle first.`,
+        icon: LuListChecks,
+        tint: "bg-indigo-50 text-indigo-600",
     },
 ]
 
 const OurServices = () => {
     return (
-        <section className='py-[80px] mt-20'>
+        <section id="features" className='scroll-mt-16 border-y border-slate-200 bg-slate-50 py-20 sm:py-28'>
             <Container>
-                <h2 className='text-center lg:w-[576px] mx-auto text-[#14358A] font-bold text-[28px] lg:text-[40px] leading-[105%] '>
-                    We optimize marketing for business continuity
-                </h2>
+                <div className="mx-auto max-w-2xl text-center">
+                    <p className="text-sm font-semibold text-indigo-600">What we check</p>
+                    <h2 className='mt-2 text-3xl font-semibold tracking-tight text-slate-900 text-balance sm:text-4xl'>
+                        Everything that matters, in one report
+                    </h2>
+                    <p className="mt-4 text-lg leading-relaxed text-slate-600 text-pretty">
+                        A complete health check of your website, written in plain English rather than jargon.
+                    </p>
+                </div>
 
-                <div className="lg:w-[800px] mx-auto">
-                    <div className='grid lg:grid-cols-2 lg:gap-8 space-y-6 lg:space-y-0 text-text mt-10 lg:mt-12'>
-                        {
-                            services.map((service) => (
-                                <div
-                                    key={service.id}
-                                    className={` border border-[#D9D9D9] rounded-[16px] p-8 bg-[#EEEEEE80]`}
-                                >
-                                    <div className='flex flex-col justify-between h-full'>
-                                        <div>
-                                            <p className='text-[#006FBA] font-semibold text-base lg:text-[20px]'>{service.title}</p>
-
-                                            <p className='text-[#68718B] mt-2 text-sm lg:text-base leading-[135%] '>
-                                                {service.description}
-                                            </p>
-                                        </div>
-
-                                        <Image className='mt-10' src={service.image} alt="features" width={56} height={56} />
-                                    </div>
-
-
-                                </div>
-                            ))
-                        }
-                        <div></div>
-                    </div>
+                <div className='mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3'>
+                    {services.map((service) => (
+                        <div
+                            key={service.title}
+                            className="group rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                        >
+                            <span className={`flex size-11 items-center justify-center rounded-xl ${service.tint}`}>
+                                <service.icon className="size-5" aria-hidden />
+                            </span>
+                            <h3 className='mt-6 text-lg font-semibold text-slate-900'>{service.title}</h3>
+                            <p className='mt-2 leading-relaxed text-slate-600'>{service.description}</p>
+                        </div>
+                    ))}
                 </div>
             </Container>
         </section>

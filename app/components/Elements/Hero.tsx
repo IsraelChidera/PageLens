@@ -1,42 +1,50 @@
 import React from 'react';
 import Container from './Container';
-import Link from 'next/link';
-import Image from 'next/image';
-import Navbar from '../Navbar';
+import UrlForm from './UrlForm';
+import ReportPreview from './ReportPreview';
+import { LuCheck, LuSparkles } from 'react-icons/lu';
+
+const perks = ["100% free", "No sign-up required", "Results in seconds"];
 
 const Hero = () => {
     return (
-        <header className='relative'>
-            <Navbar />
-            <div className='pt-[160px] pb-[80px] bg-[url(/bg-hero.png)] h-fit w-full bg-cover bg-center bg-no-repeat'>
-                <Container>
-                    <div className='flex justify-center text-center'>
-                        <div className='w-[750px] text-white'>
-                            <h1 className='leading-[105%] lg:leading-[110%] text-[40px] lg:text-[60px] font-bold'>
-                                Get a Free Audit of Your Website in Seconds
-                            </h1>
-                            <p className='lg:mt-6 mt-4 lg:text-[18px] text-sm leading-[135%] text-[#E6E8EC]'>
-                                Enter any URL and we'll instantly analyze the site's UX, SEO, performance, and accessibility — with clear, actionable feedback.
-                            </p>
+        <header className='relative isolate overflow-hidden'>
+            <div className="absolute inset-0 -z-10 bg-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]" />
+            <div className="absolute left-1/2 top-0 -z-10 h-[420px] w-[800px] -translate-x-1/2 rounded-full bg-indigo-400/15 blur-3xl" />
 
-                            <div className='mt-10 flex justify-center'>
-                                <div className="flex items-center space-x-2">
-                                    <Link href="/check-website">
-                                        <button className="font-bold text-base rounded-[10px] lg:px-10 px-6 py-2.5 lg:py-5 hover:bg-linear-to-r hover:from-[#AC5FE6] hover:to-[#6A36FF]  transition ease-linear delay-75 cursor-pointer bg-linear-to-r from-[#6A36FF] to-[#AC5FE6]">
-                                            Analyze my site
-                                        </button>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
+            <Container className='pb-20 pt-16 text-center sm:pt-24 lg:pb-28'>
+                <div className="animate-fade-up mx-auto max-w-3xl">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+                        <LuSparkles className="size-3.5" aria-hidden />
+                        AI-powered website audits
+                    </span>
+
+                    <h1 className='mt-6 text-4xl font-semibold tracking-tight text-slate-900 text-balance sm:text-5xl lg:text-6xl'>
+                        Get a free audit of your website{" "}
+                        <span className="bg-linear-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">in seconds</span>
+                    </h1>
+                    <p className='mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-600 text-pretty sm:text-lg'>
+                        Enter any URL and we&apos;ll analyze its UX, SEO, accessibility and performance, then give you clear, prioritized fixes.
+                    </p>
+
+                    <div className='mx-auto mt-10 max-w-xl'>
+                        <UrlForm />
                     </div>
 
-                    <div className="flex justify-center ">
-                        <Image src="/web-dashboard-illustration.png" alt="dashboard illustration" width={1016} height={614} />
-                    </div>
-                </Container>
-            </div>
+                    <ul className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-500">
+                        {perks.map((perk) => (
+                            <li key={perk} className="flex items-center gap-1.5">
+                                <LuCheck className="size-4 text-emerald-500" aria-hidden />
+                                {perk}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
+                <div className="animate-fade-up mt-16 [animation-delay:150ms] sm:mt-20">
+                    <ReportPreview />
+                </div>
+            </Container>
         </header>
     )
 }
