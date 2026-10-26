@@ -59,6 +59,15 @@ Also provide an overallScore (0-100), a 2-3 sentence summary, 3-5 strengths, and
 
 Write in plain, friendly English for a non-technical site owner.`;
 
+// Tried in order. Aliases avoid breakage when Google retires a model version,
+// and later entries cover the earlier ones being overloaded or unavailable.
+const MODELS = ["gemini-flash-latest", "gemini-3.5-flash", "gemini-flash-lite-latest"];
+
+const isRetryable = (error: unknown) =>
+    /\b(404|429|500|503)\b|UNAVAILABLE|RESOURCE_EXHAUSTED|NOT_FOUND|high demand|overloaded|fetch failed/i.test(
+        error instanceof Error ? error.message : String(error)
+    );
+
 const clampScore = (value: unknown) => Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
 
 export async function runAudit(url: string): Promise<AuditReport> {
@@ -68,18 +77,33 @@ export async function runAudit(url: string): Promise<AuditReport> {
     }
 
     const ai = new GoogleGenAI({ apiKey });
-    const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
-        contents: buildPrompt(url),
-        config: {
-            responseMimeType: "application/json",
-            responseSchema: auditSchema,
-        },
-    });
+    let text: string | undefined;
+
+    for (const model of MODELS) {
+        try {
+            const response = await ai.models.generateContent({
+                model,
+                contents: buildPrompt(url),
+                config: {
+                    responseMimeType: "application/json",
+                    responseSchema: auditSchema,
+                },
+            });
+            text = response.text;
+            break;
+        } catch (error) {
+            if (!isRetryable(error)) throw error;
+            console.warn(`Model ${model} unavailable, trying the next one.`, error);
+        }
+    }
+
+    if (text === undefined) {
+        throw new Error("Our AI service is experiencing high demand right now. Please try again in a minute.");
+    }
 
     let parsed: AuditReport;
     try {
-        parsed = JSON.parse(response.text ?? "");
+        parsed = JSON.parse(text);
     } catch {
         throw new Error("We couldn't read the AI response. Please try again.");
     }
