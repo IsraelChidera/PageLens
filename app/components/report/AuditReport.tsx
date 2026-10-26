@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import { LuCheck, LuCircleCheck, LuCopy, LuExternalLink, LuRotateCcw } from 'react-icons/lu';
+import { LuCheck, LuCircleCheck, LuCopy, LuDownload, LuExternalLink, LuLoaderCircle, LuRotateCcw } from 'react-icons/lu';
 import ScoreRing from './ScoreRing';
 import { categoryMeta, priorityMeta } from './categoryMeta';
 import { getScoreTone } from '@/app/lib/score';
 import { getHostname } from '@/app/lib/url';
 import { PRIORITIES, reportToMarkdown, type AuditReport as Report, type Priority } from '@/app/lib/audit';
+import { downloadReportPdf } from '@/app/lib/downloadReportPdf';
 
 type Props = {
     report: Report;
@@ -19,6 +20,8 @@ const filters: ("all" | Priority)[] = ["all", ...PRIORITIES];
 const AuditReport = ({ report, url, onReset }: Props) => {
     const [filter, setFilter] = useState<"all" | Priority>("all");
     const [copied, setCopied] = useState(false);
+    const [downloading, setDownloading] = useState(false);
+    const [downloadError, setDownloadError] = useState(false);
     const hostname = getHostname(url);
     const overallTone = getScoreTone(report.overallScore);
 
@@ -36,6 +39,19 @@ const AuditReport = ({ report, url, onReset }: Props) => {
             setTimeout(() => setCopied(false), 2000);
         } catch {
             // Clipboard can be unavailable (e.g. insecure context); nothing useful to show.
+        }
+    };
+
+    const handleDownload = async () => {
+        setDownloading(true);
+        setDownloadError(false);
+        try {
+            await downloadReportPdf(report, url);
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            setDownloadError(true);
+        } finally {
+            setDownloading(false);
         }
     };
 
@@ -65,23 +81,36 @@ const AuditReport = ({ report, url, onReset }: Props) => {
                         </div>
                     </div>
 
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
+                        <button
+                            onClick={handleDownload}
+                            disabled={downloading}
+                            className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-indigo-600 px-3.5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-wait disabled:opacity-70"
+                        >
+                            {downloading ? <LuLoaderCircle className="size-4 animate-spin" aria-hidden /> : <LuDownload className="size-4" aria-hidden />}
+                            {downloading ? "Preparing PDF…" : "Download PDF"}
+                        </button>
                         <button
                             onClick={handleCopy}
                             className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
                         >
                             {copied ? <LuCheck className="size-4 text-emerald-500" aria-hidden /> : <LuCopy className="size-4" aria-hidden />}
-                            {copied ? "Copied" : "Copy report"}
+                            {copied ? "Copied" : "Copy"}
                         </button>
                         <button
                             onClick={onReset}
-                            className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-slate-900 px-3.5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-slate-700"
+                            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
                         >
                             <LuRotateCcw className="size-4" aria-hidden />
                             New audit
                         </button>
                     </div>
                 </div>
+                {downloadError && (
+                    <p className="mt-4 text-sm text-rose-600" role="alert">
+                        We couldn&apos;t create the PDF. Please try again.
+                    </p>
+                )}
 
                 <div className="mt-6 flex flex-col items-center gap-6 text-center sm:flex-row sm:gap-8 sm:text-left">
                     <ScoreRing score={report.overallScore} size={140} strokeWidth={12} label="Overall" />
